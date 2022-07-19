@@ -6,16 +6,22 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@opengsn/contracts/src/BaseRelayRecipient.sol";
 
-contract FlipKards is ERC721, ERC721Enumerable, ERC721URIStorage {
+contract FlipKards is
+    ERC721,
+    ERC721Enumerable,
+    ERC721URIStorage,
+    BaseRelayRecipient
+{
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
 
     event Attest(address indexed to, uint256 indexed tokenId);
     event Revoke(address indexed to, uint256 indexed tokenId);
     event TokenMinted(address to, uint256 tokenId);
-    event RepairAvailed(uint256 tokenId);
-    event ReplacementAvailed(uint256 tokenId);
+    event repairAvailed(uint256 tokenId);
+    event replacementAvailed(uint256 tokenId);
     event stateVariablesChanged(
         uint256 repairsSet,
         uint256 replacementSet,
@@ -103,6 +109,14 @@ contract FlipKards is ERC721, ERC721Enumerable, ERC721URIStorage {
         emit TokenMinted(_to, tokenId);
     }
 
+    function isValidCard(uint256 _tokenId) public view returns (bool) {
+        if (block.timestamp < timestampValid[_tokenId]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function getCardbySerial(uint256 _serialNo) public view returns (uint256) {
         return SerialnoToTokenid[_serialNo];
     }
@@ -114,7 +128,7 @@ contract FlipKards is ERC721, ERC721Enumerable, ERC721URIStorage {
         uint256 _replacementSet,
         uint256 _ValiditySet,
         string memory _productName
-    ) public isRetailer(msg.sender) {
+    ) public isRetailer(_msgSender()) {
         repairsSet = _repairsSet;
         replacementSet = _replacementSet;
         ValiditySet = _ValiditySet;
@@ -130,7 +144,7 @@ contract FlipKards is ERC721, ERC721Enumerable, ERC721URIStorage {
 
     function availRepairs(uint256 _tokenId)
         public
-        isRetailer(msg.sender)
+        isRetailer(_msgSender())
         isUnderWarrantyPeriod(_tokenId)
         returns (uint256)
     {
@@ -139,13 +153,13 @@ contract FlipKards is ERC721, ERC721Enumerable, ERC721URIStorage {
             "All the repairs are Availed"
         );
         repairsAvailed[_tokenId]++;
-        emit availRepairs(tokenId);
+        emit repairAvailed(_tokenId);
         return repairsAvailed[_tokenId];
     }
 
     function availReplacements(uint256 _tokenId)
         public
-        isRetailer(msg.sender)
+        isRetailer(_msgSender())
         isUnderWarrantyPeriod(_tokenId)
         returns (uint256)
     {
@@ -154,13 +168,13 @@ contract FlipKards is ERC721, ERC721Enumerable, ERC721URIStorage {
             "All replacements have been Availed"
         );
         replacementsAvailed[_tokenId]++;
-        emit availReplacement(tokenId);
+        emit replacementAvailed(_tokenId);
         return replacementsAvailed[_tokenId];
     }
 
     function addRetailer(address _retailerAddress)
         public
-        isRetailer(msg.sender)
+        isRetailer(_msgSender())
     {
         retailers[_retailerAddress] = true;
     }
@@ -193,7 +207,7 @@ contract FlipKards is ERC721, ERC721Enumerable, ERC721URIStorage {
 
     function burn(uint256 tokenId) external {
         require(
-            ownerOf(tokenId) == msg.sender,
+            ownerOf(tokenId) == _msgSender(),
             "Only token Owner can burn tokens"
         );
         _burn(tokenId);
@@ -222,5 +236,33 @@ contract FlipKards is ERC721, ERC721Enumerable, ERC721URIStorage {
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
+    }
+
+    // <------- BaseRelay Overrides for OpenZepplin Contracts ------->
+
+    function setTrustedForwarderr(address _trustedForwarder) public {
+        _setTrustedForwarder(_trustedForwarder);
+    }
+
+    function _msgSender()
+        internal
+        view
+        override(Context, BaseRelayRecipient)
+        returns (address sender)
+    {
+        sender = BaseRelayRecipient._msgSender();
+    }
+
+    function _msgData()
+        internal
+        view
+        override(Context, BaseRelayRecipient)
+        returns (bytes calldata)
+    {
+        return BaseRelayRecipient._msgData();
+    }
+
+    function versionRecipient() external pure override returns (string memory) {
+        return "1";
     }
 }
