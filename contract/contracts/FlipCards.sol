@@ -61,16 +61,6 @@ contract FlipKards is
         _;
     }
 
-    struct warrantyCard {
-        uint256 tokenId;
-        uint256 serialNo;
-        string name;
-        uint256 timestampBought;
-        uint256 validtillTimestamp;
-        uint256 repairs;
-        uint256 replacements;
-    }
-
     constructor(
         uint256 _repairsSet,
         uint256 _replacementSet,
@@ -109,16 +99,13 @@ contract FlipKards is
         emit TokenMinted(_to, tokenId);
     }
 
-    function isValidCard(uint256 _tokenId) public view returns (bool) {
-        if (block.timestamp < timestampValid[_tokenId]) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     function getCardbySerial(uint256 _serialNo) public view returns (uint256) {
         return SerialnoToTokenid[_serialNo];
+    }
+
+    function extendWarranty(uint256 _tokenId, uint256 _timeToExtend) public {
+        require(ownerOf(_tokenId) == _msgSender());
+        timestampValid[_tokenId] += _timeToExtend;
     }
 
     // RETAILER FUNCTIONS
