@@ -1,0 +1,146 @@
+body{
+    font-family: 'Manrope', sans-serif;
+    color: rgb(22, 22, 22);
+}
+
+.bg{
+    background-color: #111614;
+}
+.mainContainer{
+    padding-top: 10px;
+    background-color: #111614;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+.Card{
+    background-color: hsla(0, 100%, 50%, 1);
+        background-image:
+            radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 1) 0px, transparent 50%),
+            radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
+            radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 1) 0px, transparent 50%),
+            radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 1) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 1) 0px, transparent 50%),
+            radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
+            radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 1) 0px, transparent 50%);
+    width: 90%;
+    height: 274px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cardInfo{
+  display: flex;
+  flex-direction: column;
+}
+.qrCode{
+    padding: 12.5px;
+    background-color: #E0E0E0;
+    border-radius: 11px;
+    height: 145px;
+    width: 145px;
+}
+.mainCard{
+    display: flex;
+    justify-content: space-around;
+}
+
+.productName{
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+    color: white;
+}
+
+.description{
+    padding-top: 15px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+}
+
+.serialNo{
+    font-size: 13px;
+    font-weight: 500;
+}
+.subCard {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.purchasedon{
+    margin-right:auto ;
+}
+
+.date{
+    font-weight: 800;
+    font-size: 14px;
+    color: white;
+}
+
+
+.subContainer{
+    margin-top: 70px;
+    background: linear-gradient(180deg, rgba(30, 30, 30, 0.8) 0.01%, rgba(37, 37, 37, 0.8) 45.12%, rgba(46, 46, 46, 0.9) 100%);
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    border-radius: 40px 40px 0 0;
+    padding: 30px;
+}
+
+.perksHead{
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+}
+.perks{
+    width: 100%;
+    
+}
+.perksDiv{
+    padding-top: 15px;
+    color: white;
+}
+
+.perks1{
+    font-size: 20px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.perksCount{
+    font-weight: 700;
+    font-size: 23px;
+    color: white;
+}
+
+.ownerInfo{
+    color: white;
+}
+.ownerHead{
+    font-family: 'Syne', sans-serif;
+}
+.address{
+    word-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+    .subContainer{
+        padding: 100px;
+        padding-left: 300px;
+        padding-right: 300px;
+    }
+    .Card{
+        width: 400px;
+        height: 274px;
+    }
+}

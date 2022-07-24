@@ -1,0 +1,56 @@
+*{
+    box-sizing: border-box;
+}
+
+.nav{
+    background-color: #111614;
+    display: flex;
+    padding: 20px;
+    width: 100%;
+    height: 80px;
+    align-items: center;
+}
+
+
+
+.logo{
+    color: #E46138;
+    font-size: 25px;
+    font-weight: 700;
+    margin-left: 5px;
+    margin-right: auto;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+}
+.logo:hover{
+    cursor: pointer;
+}
+
+.logoutBtn{
+    border: none;
+    color: white;
+    background-color:#E46138;
+    height: 35px;
+    width: 80px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+}
+
+@media (min-width: 768px) {
+    .nav {
+        padding: 40px;
+    }
+
+    .logo {
+        margin-left: 25px;
+        font-size: 30px;
+    }
+    .logoutBtn{
+        margin-right: 25px;
+        font-size: 15px;
+        height: 45px;
+        width: 100px;
+    }
+}

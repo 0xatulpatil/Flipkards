@@ -34,6 +34,9 @@ async function main() {
   );
   tx.wait();
   console.log("Token Minted");
+
+  const tx3 = await contract.getWarrantyCard(0);
+  console.log("card", tx2);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

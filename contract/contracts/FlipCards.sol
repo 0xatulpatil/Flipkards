@@ -17,6 +17,7 @@ contract FlipKards is
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
 
+   //         <------- EVENTS  ------->          //
     event Attest(address indexed to, uint256 indexed tokenId);
     event Revoke(address indexed to, uint256 indexed tokenId);
     event TokenMinted(address to, uint256 tokenId);
@@ -28,8 +29,10 @@ contract FlipKards is
         uint256 ValiditySet,
         string productName
     );
+    event retailerAdded(address retailer);
+    event retailerRemoved(address retialer);
 
-    //variables that are set by the retailer:
+   //         <------- STORAGE VARIABLES  ------->          //
     uint256 private repairsSet;
     uint256 private replacementSet;
     uint256 private ValiditySet;
@@ -46,7 +49,7 @@ contract FlipKards is
     mapping(uint256 => uint256) internal replacementsAvailed;
     mapping(address => bool) public retailers;
 
-    //MODIFIERS
+     //         <------- MODIFIERS  ------->          //
 
     modifier isUnderWarrantyPeriod(uint256 _tokenId) {
         require(
@@ -56,7 +59,7 @@ contract FlipKards is
         _;
     }
 
-    modifier isRetailer(address _sender) {
+    modifier onlyRetailer(address _sender) {
         require(retailers[_sender] == true, "Not an registered Retailer");
         _;
     }
@@ -67,15 +70,30 @@ contract FlipKards is
         uint256 _ValiditySet,
         string memory _productName,
         address _retailerAddress
-    ) ERC721("MyToken", "MTK") {
+    ) ERC721("FlipKards", "FKDS") {
         repairsSet = _repairsSet;
         replacementSet = _replacementSet;
         ValiditySet = _ValiditySet;
         productName = _productName;
         retailers[_retailerAddress] = true;
+
+        //starting index with 1 to save gas for the first mint
+         _tokenIdCounter.increment();
     }
 
-    // USER FUNCTIONS
+     //         <------- USER FUNCTIONS  ------->          //
+
+    struct warrantyCard {
+        uint256 tokenId;
+        uint256 serialNo;
+        string productName;
+        uint256 timestampBought;
+        uint256 timestampValid;
+        uint256 repairs;
+        uint256 repairsAvailed;
+        uint256 replacements;
+        uint256 replacementsAvailed;
+    }
 
     function mintToAddress(
         address _to,
@@ -108,14 +126,34 @@ contract FlipKards is
         timestampValid[_tokenId] += _timeToExtend;
     }
 
-    // RETAILER FUNCTIONS
+    function getWarrantyCard(uint256 _tokenId)
+        public
+        view
+        returns (warrantyCard memory)
+    {
+        warrantyCard memory card;
+
+        card.tokenId = _tokenId;
+        card.serialNo = TokenidToSerialno[_tokenId];
+        card.productName = TokenidToname[_tokenId];
+        card.timestampBought = timestampBought[_tokenId];
+        card.timestampValid = timestampValid[_tokenId];
+        card.repairs = repairs[_tokenId];
+        card.repairsAvailed = repairsAvailed[_tokenId];
+        card.replacements = replacements[_tokenId];
+        card.replacementsAvailed = replacementsAvailed[_tokenId];
+
+        return card;
+    }
+
+      //         <------- RETAILER FUNCTIONS  ------->          //
 
     function changeRetailerVariables(
         uint256 _repairsSet,
         uint256 _replacementSet,
         uint256 _ValiditySet,
         string memory _productName
-    ) public isRetailer(_msgSender()) {
+    ) public onlyRetailer(_msgSender()) {
         repairsSet = _repairsSet;
         replacementSet = _replacementSet;
         ValiditySet = _ValiditySet;
@@ -131,7 +169,7 @@ contract FlipKards is
 
     function availRepairs(uint256 _tokenId)
         public
-        isRetailer(_msgSender())
+        onlyRetailer(_msgSender())
         isUnderWarrantyPeriod(_tokenId)
         returns (uint256)
     {
@@ -146,7 +184,7 @@ contract FlipKards is
 
     function availReplacements(uint256 _tokenId)
         public
-        isRetailer(_msgSender())
+        onlyRetailer(_msgSender())
         isUnderWarrantyPeriod(_tokenId)
         returns (uint256)
     {
@@ -161,10 +199,21 @@ contract FlipKards is
 
     function addRetailer(address _retailerAddress)
         public
-        isRetailer(_msgSender())
+        onlyRetailer(_msgSender())
     {
         retailers[_retailerAddress] = true;
+        retailerAdded(_retailerAddress);
     }
+
+// This would be usually called by a superior retailer (Avoided to increase complexity)
+    function removeRetailer(address _retailerAddress) public onlyRetailer(_msgSender()) {
+        retailers[_retailerAddress] = false;
+        retailerRemoved(_retailerAdrress);
+    }
+
+   function isRetailer(address _retailerAddress) public returns(bool){
+     return retailers[_retailerAddress];
+   }
 
     // <----- SoulBound Token Implementation ----->
 

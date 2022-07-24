@@ -1,0 +1,70 @@
+.wrapper{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin-top:10px
+}
+.heading{
+    font-size: 25px;
+    font-weight: 700;
+    font-family: 'Syne';
+    color: white;
+    padding: 22px;
+}
+
+.allCardsContiner{
+    background-color: #111614;
+    height:100vh;
+}
+
+
+
+.mainContainerCard{
+ display: flex;
+ justify-content: space-between;
+ /* background-color: wheat; */
+ border-radius: 15px;
+ width: 340px;;
+ height: 120px;
+ padding: 20px 18px 0 18px;
+
+
+background-color: hsla(0, 100%, 50%, 1);
+    background-image:
+        radial-gradient(at 1% 0%, hsla(28, 100%, 74%, 1) 0px, transparent 50%),
+        radial-gradient(at 58% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(355, 100%, 93%, 1) 0px, transparent 50%),
+        radial-gradient(at 96% 13%, hsla(340, 100%, 76%, 1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 1) 0px, transparent 50%);
+}
+
+.info{
+ color: white;
+}
+
+.cardHeads{
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Syne';
+}
+
+.cardSerialNo{
+    font-size: 12px;
+}
+
+
+.status{
+  color: white;
+  font-size: 10px;
+}
+
+.date{
+    font-size: 15px;
+    font-weight: 600;
+}
+.loading{
+    color: white;
+}
