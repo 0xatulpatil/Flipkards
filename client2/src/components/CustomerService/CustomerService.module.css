@@ -1,0 +1,47 @@
+
+.wrapper{
+    min-height: calc(100vh - 85px);
+    background-color: #111614;
+    padding: 40px;
+}
+
+.head{
+  color: white;
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.inputs{
+    color: white;
+    font-size: 20px;
+    font-family: "Syne"; 
+}
+
+.serial{
+    background-color: #212121;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+    margin-left: 15px;
+    color: white;
+}
+.btn{
+    border: none;
+    background-color: #E46138;
+    height: 40px;
+    margin-left: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 7px;
+}
+
+.userCard{
+
+}
+
+.m{
+    color: white;
+}

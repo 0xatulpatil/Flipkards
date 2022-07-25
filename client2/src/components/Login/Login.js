@@ -55,7 +55,7 @@ export const Login = ({ setWeb3, setContract, setBiconomy, setAccount }) => {
     );
     setContract(contract);
     setUser(magic.user.getMetadata().then((userData) => setUser(userData)));
-    navigate("/user/allcards");
+    navigate("/retailer/dashboard");
   };
 
   useEffect(() => {

@@ -17,7 +17,7 @@ contract FlipKards is
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
 
-   //         <------- EVENTS  ------->          //
+    //         <------- EVENTS  ------->          //
     event Attest(address indexed to, uint256 indexed tokenId);
     event Revoke(address indexed to, uint256 indexed tokenId);
     event TokenMinted(address to, uint256 tokenId);
@@ -32,7 +32,7 @@ contract FlipKards is
     event retailerAdded(address retailer);
     event retailerRemoved(address retialer);
 
-   //         <------- STORAGE VARIABLES  ------->          //
+    //         <------- STORAGE VARIABLES  ------->          //
     uint256 private repairsSet;
     uint256 private replacementSet;
     uint256 private ValiditySet;
@@ -49,7 +49,7 @@ contract FlipKards is
     mapping(uint256 => uint256) internal replacementsAvailed;
     mapping(address => bool) public retailers;
 
-     //         <------- MODIFIERS  ------->          //
+    //         <------- MODIFIERS  ------->          //
 
     modifier isUnderWarrantyPeriod(uint256 _tokenId) {
         require(
@@ -78,10 +78,10 @@ contract FlipKards is
         retailers[_retailerAddress] = true;
 
         //starting index with 1 to save gas for the first mint
-         _tokenIdCounter.increment();
+        _tokenIdCounter.increment();
     }
 
-     //         <------- USER FUNCTIONS  ------->          //
+    //         <------- USER FUNCTIONS  ------->          //
 
     struct warrantyCard {
         uint256 tokenId;
@@ -93,6 +93,7 @@ contract FlipKards is
         uint256 repairsAvailed;
         uint256 replacements;
         uint256 replacementsAvailed;
+        uint256 ownerAddress;
     }
 
     function mintToAddress(
@@ -142,11 +143,11 @@ contract FlipKards is
         card.repairsAvailed = repairsAvailed[_tokenId];
         card.replacements = replacements[_tokenId];
         card.replacementsAvailed = replacementsAvailed[_tokenId];
-
+        // return tokenOwner as well
         return card;
     }
 
-      //         <------- RETAILER FUNCTIONS  ------->          //
+    //         <------- RETAILER FUNCTIONS  ------->          //
 
     function changeRetailerVariables(
         uint256 _repairsSet,
@@ -205,15 +206,18 @@ contract FlipKards is
         retailerAdded(_retailerAddress);
     }
 
-// This would be usually called by a superior retailer (Avoided to increase complexity)
-    function removeRetailer(address _retailerAddress) public onlyRetailer(_msgSender()) {
+    // This would be usually called by a superior retailer (Avoided to increase complexity)
+    function removeRetailer(address _retailerAddress)
+        public
+        onlyRetailer(_msgSender())
+    {
         retailers[_retailerAddress] = false;
         retailerRemoved(_retailerAdrress);
     }
 
-   function isRetailer(address _retailerAddress) public returns(bool){
-     return retailers[_retailerAddress];
-   }
+    function isRetailer(address _retailerAddress) public returns (bool) {
+        return retailers[_retailerAddress];
+    }
 
     // <----- SoulBound Token Implementation ----->
 

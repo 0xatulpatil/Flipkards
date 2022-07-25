@@ -6,7 +6,14 @@ export const UserDashboard = () => {
   return (
     <div>
       <nav className={styles.nav}>
-        <div className={styles.logo}>Flipkards</div>
+        <div className={styles.logo}>
+          <Link
+            to="/user/allcards"
+            style={{ textDecoration: "none", all: "none", color: "#E46138" }}
+          >
+            Flipkards
+          </Link>
+        </div>
         <div className={styles.option}>
           <button className={styles.logoutBtn}>Logout</button>
         </div>

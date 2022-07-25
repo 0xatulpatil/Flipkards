@@ -1,0 +1,45 @@
+.mainWrapper{
+    background-color: #111614;
+    color: white;
+    height: 90vh;
+    padding: 50px;
+}
+
+.head{
+    font-size: 30px;
+    font-family: "Syne";
+    font-weight: 700;
+}
+.desc{
+    margin-top: 10px;
+}
+.inputs{
+    margin-top: 40px;
+    font-size: 20px;
+    font-family: "Syne";
+    font-weight: 400;
+}
+.inputBox{
+    margin-top: 30px;
+    margin-left: 20px;
+    padding: 10px;
+    background-color: #212121;
+    border-radius: 6px;
+    width: 300px;
+    border: none;
+    color: white;
+    height: 40px;
+    font-size: 20px;
+}
+.btn{
+    background-color: #E46138;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 700;
+    font-family: "Syne";
+    font-size: 17px;
+    padding: 18px;
+    margin-top: 20px;
+}

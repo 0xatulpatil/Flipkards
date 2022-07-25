@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Card.module.css";
 import QRCode from "react-qr-code";
+import config from "../../configs";
 
 export const Card = ({ contract }) => {
   let params = useParams();
@@ -62,7 +63,7 @@ export const Card = ({ contract }) => {
                   </div>
                   <div className={styles.qrCode}>
                     <QRCode
-                      value="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                      value={`https://mumbai.polygonscan.com/token/${config.contract.address}`}
                       size={120}
                       fgColor={"#0a0a0a"}
                       bgColor={"#E0E0E0"}

@@ -19,6 +19,9 @@ import {
 import { AllCards } from "./components/AllCards/AllCards";
 import { UserDashboard } from "./components/UserDashboard/UserDashboard";
 import { Card } from "./components/Card/Card";
+import { RetailerNavbar } from "./components/RetailerNavbar/RetailerNavbar";
+import { RetailerDashboard } from "./components/RetailerDashboard/RetailerDashboard";
+import { CustomerService } from "./components/CustomerService/CustomerService";
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -45,8 +48,18 @@ function App() {
             </Route>
           </Route>
           {/* Retailer Routes */}
-          <Route path="/retailer" element={<h1>he</h1>}>
-            <Route path="dashboard" element={<h3>Dashboard</h3>} />
+          <Route path="/retailer" element={<RetailerNavbar />}>
+            <Route
+              path="dashboard"
+              element={
+                <RetailerDashboard
+                  contract={contract}
+                  biconomy={biconomy}
+                  userAddress={account}
+                />
+              }
+            />
+            <Route path="customerservice" element={<CustomerService />} />
           </Route>
           <Route
             path="/login"

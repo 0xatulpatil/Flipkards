@@ -1,0 +1,40 @@
+.nav{
+    background-color: #111614;
+    display: flex;
+    padding: 20px;
+}
+Link{
+    text-decoration: none;
+    color: red;
+}
+.logo{
+    color: #E46138;
+    font-weight: 700;
+    font-size: 30px;
+    font-family: "Syne";
+    margin-right: auto;
+    margin-left:40px ;
+}
+
+.elems{
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.m{
+    margin-right: 40px;
+    font-weight: 500;
+    font-size:18px ;
+}
+
+.logout{
+    background-color: #E46138;
+    border-radius: 6px;
+    font-size: 15px;
+    height: 45px;
+    width: 100px;
+    font-weight: 600;
+    color: white;
+    margin-right: 40px;
+}
