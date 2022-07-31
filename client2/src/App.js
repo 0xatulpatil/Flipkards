@@ -28,6 +28,8 @@ import { CustomerService } from "./components/CustomerService/CustomerService";
 import { Products } from "./components/Products/Products";
 import config from "./configs";
 import { Community } from "./components/Community/Community";
+import { Callback } from "./components/Callback/Callback";
+import { CallbackRetailer } from "./components/CallbackRetailer/CallbackRetailer";
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -67,6 +69,28 @@ function App() {
               />
             }
           ></Route>
+          <Route
+            path="/callback"
+            element={
+              <Callback
+                setWeb3={setWeb3}
+                setBiconomy={setBiconomy}
+                setAccount={setAccount}
+                setContract={setContract}
+              />
+            }
+          />
+          <Route
+            path="/callbackretailer"
+            element={
+              <CallbackRetailer
+                setWeb3={setWeb3}
+                setBiconomy={setBiconomy}
+                setAccount={setAccount}
+                setContract={setContract}
+              />
+            }
+          />
           {/* User Routes */}
           <Route
             path="/user"

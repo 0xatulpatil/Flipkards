@@ -1,13 +1,23 @@
-# Sample Hardhat Project
+# Flipkards - NFT based E-Commerce Warranty System
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+Smart contract for an NFT based E-Commerce Warranty System, made for Flipkart Grid 4.0
 
 Try running some of the following tasks:
 
-```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+Run command to install all modules.
+
+```
+run npm install
+```
+
+To run deploy script:
+
+```
+npx hardhat run ./scripts/run.js
+```
+
+To deploy contract on mumbai network
+
+```
+npx hardhat run ./scripts/deploy.js --network mumbai
 ```

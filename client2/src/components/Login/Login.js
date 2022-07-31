@@ -41,7 +41,7 @@ export const Login = ({ setWeb3, setContract, setBiconomy, setAccount }) => {
     if (!isLoggedIn) {
       return magic.oauth.loginWithRedirect({
         provider: "google",
-        redirectURI: window.location.origin + "/",
+        redirectURI: window.location.origin + "/callback",
       });
     }
 
@@ -84,7 +84,7 @@ export const Login = ({ setWeb3, setContract, setBiconomy, setAccount }) => {
     if (!isLoggedIn) {
       return magic.oauth.loginWithRedirect({
         provider: "google",
-        redirectURI: window.location.origin + "/",
+        redirectURI: window.location.origin + "/callbackretailer",
       });
     }
 

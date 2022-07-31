@@ -19,16 +19,22 @@ contract FlipKards is
 
     //         <------- EVENTS  ------->          //
     event Attest(address indexed to, uint256 indexed tokenId);
+
     event Revoke(address indexed to, uint256 indexed tokenId);
+
     event TokenMinted(address to, uint256 tokenId);
+
     event repairAvailed(uint256 tokenId);
+
     event replacementAvailed(uint256 tokenId);
+
     event stateVariablesChanged(
         uint256 repairsSet,
         uint256 replacementSet,
         uint256 ValiditySet,
         string productName
     );
+
     event retailerAdded(address retailer);
     event retailerRemoved(address retialer);
     event ExtendWarranty(uint256 _tokenId);
@@ -97,6 +103,9 @@ contract FlipKards is
         address ownerAddress;
     }
 
+    // ideally this should be a protected function, a server should airdrop these NFT's to users, but for the sake
+    //of simplicity we are letting currently anyone mint for the user.
+    //We can also implement batch mints, to save on gas
     function mintToAddress(
         address _to,
         uint256 _serialNo,
@@ -138,6 +147,7 @@ contract FlipKards is
         returns (warrantyCard memory)
     {
         warrantyCard memory card;
+
         card.tokenId = _tokenId;
         card.serialNo = TokenidToSerialno[_tokenId];
         card.productName = TokenidToname[_tokenId];
