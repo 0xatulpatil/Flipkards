@@ -15,7 +15,8 @@
 
 .allCardsContiner{
     background-color: #111614;
-    height:100vh;
+    height:max(100vh,calc(100vh + 80px));
+    font-family: "Syne";
 }
 
 

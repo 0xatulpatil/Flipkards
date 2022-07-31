@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RetailerNavbar.module.css";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
-export const RetailerNavbar = () => {
+export const RetailerNavbar = ({
+  logout,
+  setContract,
+  setWeb3,
+  setAccount,
+  setBiconomy,
+  setUser,
+}) => {
+  const navigate = useNavigate();
   return (
     <>
       <nav className={styles.nav}>
@@ -33,7 +41,20 @@ export const RetailerNavbar = () => {
           {/* <Link to="">
             <div className={styles.m}></div>
           </Link> */}
-          <button className={styles.logout}>Log Out</button>
+          <button
+            onClick={() => {
+              logout();
+              setWeb3(null);
+              setContract(null);
+              setAccount(null);
+              setBiconomy(null);
+              setUser(null);
+              navigate("/");
+            }}
+            className={styles.logout}
+          >
+            Log Out
+          </button>
         </div>
       </nav>
       <Outlet />

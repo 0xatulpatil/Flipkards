@@ -10,6 +10,9 @@ import { MintToken } from "./components/MintToken.js/MintToken";
 import { Login } from "./components/Login/Login";
 import { UserContext } from "./utils/userContext";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -22,6 +25,9 @@ import { Card } from "./components/Card/Card";
 import { RetailerNavbar } from "./components/RetailerNavbar/RetailerNavbar";
 import { RetailerDashboard } from "./components/RetailerDashboard/RetailerDashboard";
 import { CustomerService } from "./components/CustomerService/CustomerService";
+import { Products } from "./components/Products/Products";
+import config from "./configs";
+import { Community } from "./components/Community/Community";
 
 function App() {
   const [account, setAccount] = useState(null);
@@ -30,15 +36,51 @@ function App() {
   const [contract, setContract] = useState(null);
   const [user, setUser] = useState(null);
 
+  const magic = new Magic(config.magicAuthAPI);
+
+  const logout = async () => {
+    let magic = new Magic(config.magicAuthAPI);
+    try {
+      console.log("Logging out");
+      await magic.user.logout();
+      console.log(await magic.user.isLoggedIn());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   return (
     <Router>
       <UserContext.Provider value={providerValue}>
         <Routes>
-          <Route exact path="/" element={<h1>Four oh Four</h1>}></Route>
+          <Route
+            exact
+            path="/"
+            element={
+              <Login
+                setWeb3={setWeb3}
+                setBiconomy={setBiconomy}
+                setAccount={setAccount}
+                setContract={setContract}
+              />
+            }
+          ></Route>
           {/* User Routes */}
-          <Route path="/user" element={<UserDashboard />}>
+          <Route
+            path="/user"
+            element={
+              <UserDashboard
+                logout={logout}
+                setWeb3={setWeb3}
+                setAccount={setAccount}
+                setContract={setContract}
+                setBiconomy={setBiconomy}
+                setUser={setUser}
+              />
+            }
+          >
             <Route
               path="allcards"
               element={<AllCards contract={contract} userAddress={account} />}
@@ -46,9 +88,33 @@ function App() {
             <Route path="cards">
               <Route path=":id" element={<Card contract={contract} />} />
             </Route>
+            <Route
+              path="product"
+              element={
+                <Products
+                  contract={contract}
+                  biconomy={biconomy}
+                  userAddress={account}
+                />
+              }
+            />
+            <Route path="community" element={<Community />} />
           </Route>
+
           {/* Retailer Routes */}
-          <Route path="/retailer" element={<RetailerNavbar />}>
+          <Route
+            path="/retailer"
+            element={
+              <RetailerNavbar
+                logout={logout}
+                setWeb3={setWeb3}
+                setAccount={setAccount}
+                setContract={setContract}
+                setBiconomy={setBiconomy}
+                setUser={setUser}
+              />
+            }
+          >
             <Route
               path="dashboard"
               element={
@@ -59,7 +125,16 @@ function App() {
                 />
               }
             />
-            <Route path="customerservice" element={<CustomerService />} />
+            <Route
+              path="customerservice"
+              element={
+                <CustomerService
+                  contract={contract}
+                  userAddress={account}
+                  biconomy={biconomy}
+                />
+              }
+            />
           </Route>
           <Route
             path="/login"
@@ -74,7 +149,7 @@ function App() {
           />
           <Route path="*" element={<h1>Four oh Four</h1>}></Route>
         </Routes>
-      </UserContext.Provider>
+      </UserContext.Provider>{" "}
     </Router>
   );
 }

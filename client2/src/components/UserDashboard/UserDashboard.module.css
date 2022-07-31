@@ -25,7 +25,10 @@
 .logo:hover{
     cursor: pointer;
 }
-
+.option{
+    display: flex;
+    align-items: center;
+}
 .logoutBtn{
     border: none;
     color: white;
@@ -36,6 +39,10 @@
     font-weight: 600;
     cursor: pointer;
     font-family: 'Syne', sans-serif;
+}
+.shop{
+    color: white;
+    margin-right: 6px;
 }
 
 @media (min-width: 768px) {

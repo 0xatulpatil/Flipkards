@@ -43,3 +43,36 @@
     padding: 18px;
     margin-top: 20px;
 }
+
+.retailerAddress{
+    margin-left: 20px;
+        padding: 10px;
+       
+        background-color: #212121;
+        border-radius: 6px;
+        width: 300px;
+        border: none;
+        color: white;
+        height: 40px;
+        font-size: 20px;
+}
+
+.addRetailerbtn{
+background-color: #E46138;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 700;
+    font-family: "Syne";
+    font-size: 15px;
+    padding: 15px;
+    margin-top: 20px;
+}
+.heading{
+    color: white;
+    font-family: "Syne";
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 20px;
+}

@@ -3,10 +3,25 @@ import { Outlet, Link } from "react-router-dom";
 import styles from "./AllCards.module.css";
 import { fetchCards } from "../../utils/fetcher";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const AllCards = ({ contract, userAddress }) => {
   const [cards, setCards] = useState(null);
+  const notify = () => {
+    toast.info("Getting your Cards,hold tight! ", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   const getInitialCards = async () => {
+    notify();
     const res = await fetchCards(contract, userAddress);
     setCards(res);
   };
@@ -44,7 +59,17 @@ export const AllCards = ({ contract, userAddress }) => {
       ) : (
         <div className={styles.loading}>Loading Your Cards....</div>
       )}
-
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Outlet />
     </div>
   );

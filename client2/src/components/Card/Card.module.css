@@ -132,6 +132,16 @@ body{
 .address{
     word-wrap: break-word;
 }
+.Cbtn{
+    background-color:#E46138 ;
+    border: none;
+    width: 100%;
+    margin: 0px;
+    color: white;
+    padding: 10px;
+    font-weight: 700;
+    font-family: "Syne";
+}
 
 @media (min-width: 768px) {
     .subContainer{

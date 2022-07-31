@@ -1,0 +1,66 @@
+.wrapper{
+    height: calc(100vh );
+    background-color: #111614;
+    padding: 25px;
+}
+.head{
+    font-family: "Syne";
+    font-weight: 700;
+    margin: 0px;
+    background-color: #111614;
+    color: white;
+}
+
+.products{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+
+/* CARD STYLES */
+.cardwrapper{
+    display: flex;
+   margin-top: 15px;
+   width: 350px;
+}
+
+.name{
+    color: white;
+    font-family: "Syne";
+    font-size: 22px;
+    font-weight: 700;
+}
+.image{
+    background-color:#1a1a1a;
+    border-radius: 10px;
+    
+}
+.img{
+height: 150px;
+width: 150px;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding-top: 10px;
+    margin-left: 15px;
+    justify-content: space-around;
+}
+.price{
+    font-weight: 600;
+}
+.warranty{
+    font-size: 15px;
+    text-decoration: underline;
+}
+.buy{
+    margin-top: 10px;
+    background-color: #E46138;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+    font-weight: 600;
+}

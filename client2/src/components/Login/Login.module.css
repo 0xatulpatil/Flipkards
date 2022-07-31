@@ -1,0 +1,53 @@
+.wrapper{
+    background-color: #111614;
+    height: 100vh;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.head{
+    font-family: "Syne";
+    font-size: 30px;
+    font-weight: 700;
+}
+.btn{
+    margin-top: 10px;
+    border: none;
+    background-color: #E46138;
+    padding: 15px;
+    font-size: 18px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.user{
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.retailer{
+display: flex;
+flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 400px) {
+    .head{
+        font-family: "Syne";
+        font-size: 15px;
+        font-weight: 700;
+        margin-top: 50px;
+    }
+    .wrapper{
+       flex-direction: column;
+       justify-content: center;
+       height: 100vh
+    }
+    .btn {
+      margin-top: 5px;
+    }
+}

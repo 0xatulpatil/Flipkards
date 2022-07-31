@@ -31,6 +31,7 @@ contract FlipKards is
     );
     event retailerAdded(address retailer);
     event retailerRemoved(address retialer);
+    event ExtendWarranty(uint256 _tokenId);
 
     //         <------- STORAGE VARIABLES  ------->          //
     uint256 private repairsSet;
@@ -93,7 +94,7 @@ contract FlipKards is
         uint256 repairsAvailed;
         uint256 replacements;
         uint256 replacementsAvailed;
-        uint256 ownerAddress;
+        address ownerAddress;
     }
 
     function mintToAddress(
@@ -122,9 +123,13 @@ contract FlipKards is
         return SerialnoToTokenid[_serialNo];
     }
 
-    function extendWarranty(uint256 _tokenId, uint256 _timeToExtend) public {
+    function extendWarranty(uint256 _tokenId, uint256 _timeToExtend)
+        public
+        onlyRetailer(_msgSender())
+    {
         require(ownerOf(_tokenId) == _msgSender());
         timestampValid[_tokenId] += _timeToExtend;
+        emit ExtendWarranty(_tokenId);
     }
 
     function getWarrantyCard(uint256 _tokenId)
@@ -133,7 +138,6 @@ contract FlipKards is
         returns (warrantyCard memory)
     {
         warrantyCard memory card;
-
         card.tokenId = _tokenId;
         card.serialNo = TokenidToSerialno[_tokenId];
         card.productName = TokenidToname[_tokenId];
@@ -143,7 +147,7 @@ contract FlipKards is
         card.repairsAvailed = repairsAvailed[_tokenId];
         card.replacements = replacements[_tokenId];
         card.replacementsAvailed = replacementsAvailed[_tokenId];
-        // return tokenOwner as well
+        card.ownerAddress = ownerOf(_tokenId);
         return card;
     }
 
@@ -203,7 +207,7 @@ contract FlipKards is
         onlyRetailer(_msgSender())
     {
         retailers[_retailerAddress] = true;
-        retailerAdded(_retailerAddress);
+        emit retailerAdded(_retailerAddress);
     }
 
     // This would be usually called by a superior retailer (Avoided to increase complexity)
@@ -212,10 +216,10 @@ contract FlipKards is
         onlyRetailer(_msgSender())
     {
         retailers[_retailerAddress] = false;
-        retailerRemoved(_retailerAdrress);
+        emit retailerRemoved(_retailerAddress);
     }
 
-    function isRetailer(address _retailerAddress) public returns (bool) {
+    function isRetailer(address _retailerAddress) public view returns (bool) {
         return retailers[_retailerAddress];
     }
 

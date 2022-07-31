@@ -1,0 +1,56 @@
+.wrapper{
+    background-color: #111614;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 10px;   
+}
+
+.avatar{
+    height: 60px;
+    width: 60px;
+    border-radius: 100px;
+    margin-right: 15px;
+    
+}
+.user{
+    display: flex;
+    margin-top: 15px;
+    padding: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color:#202120;
+    border-radius: 5px;
+
+}
+.usr{
+    font-weight: 700;
+}
+.message{
+    padding-top: 10px;
+    font-size: 13px;
+}
+.input{
+    margin-top: 90px;
+}
+.inputbox{
+    border: none;
+    background-color: #202120;
+    height: 46px;
+    width: 70%;
+    color: white;
+    margin-right: 10px;
+    border-radius: 8px;
+}
+.btn{
+    border: none;
+    background-color:#E46138 ;
+    color: white;
+    font-family: "Syne";
+    height: 46px;
+    padding: 10px;
+    font-weight: 600;
+    border-radius: 5px;
+    width: 25%;
+}

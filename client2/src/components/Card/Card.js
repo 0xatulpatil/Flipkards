@@ -3,25 +3,29 @@ import { useParams } from "react-router-dom";
 import styles from "./Card.module.css";
 import QRCode from "react-qr-code";
 import config from "../../configs";
+import { Link } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Card = ({ contract }) => {
   let params = useParams();
   const [cardData, setCardData] = useState(null);
-  const [ownerAddress, setOwnerAddress] = useState("0x00");
 
+  const notify = () => {
+    toast.info("Getting your card! ", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
   const getCard = async () => {
     let data = await contract.getWarrantyCard(params.id);
-    console.log(data);
     setCardData(data);
-  };
-
-  const owner = async () => {
-    try {
-      let owner = await contract.ownerOf(cardData.tokenId.toNumber());
-      setOwnerAddress(owner);
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   const timestampToDate = (ts) => {
@@ -36,8 +40,8 @@ export const Card = ({ contract }) => {
   };
 
   useEffect(() => {
+    notify();
     getCard();
-    owner();
   }, []);
 
   return (
@@ -63,7 +67,7 @@ export const Card = ({ contract }) => {
                   </div>
                   <div className={styles.qrCode}>
                     <QRCode
-                      value={`https://mumbai.polygonscan.com/token/${config.contract.address}`}
+                      value={`https://mumbai.polygonscan.com/token/${config.contract.address}?a=${cardData.ownerAddress}`}
                       size={120}
                       fgColor={"#0a0a0a"}
                       bgColor={"#E0E0E0"}
@@ -119,11 +123,32 @@ export const Card = ({ contract }) => {
             </div>
             <div className={styles.ownerInfo}>
               <h2 className={styles.ownerHead}>Owner</h2>
-              <div className={styles.address}>{ownerAddress}</div>
+              <div className={styles.address}>{cardData.ownerAddress}</div>
             </div>
+          </div>
+          <div style={styles.community}>
+            <button className={styles.Cbtn}>
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to="/user/community"
+              >
+                Go to Community Page
+              </Link>
+            </button>
           </div>
         </div>
       )}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };
