@@ -74,6 +74,9 @@ export const Callback = ({ setWeb3, setAccount, setBiconomy, setContract }) => {
         (Loading liraries, this may take 20-30 seconds depending on your
         internet connection...) Dont Panic, just sit back and relax..
       </div>
+      <div style={{ fontSize: "10px" }}>
+        [Open in Google Chrome for best results]
+      </div>
     </div>
   );
 };
