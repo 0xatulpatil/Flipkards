@@ -32,6 +32,14 @@ export const UserDashboard = ({
               Shop
             </Link>
           </div>
+          <div className={styles.shop}>
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to="/user/allcards"
+            >
+              Your-Cards
+            </Link>
+          </div>
           <button
             onClick={() => {
               logout();

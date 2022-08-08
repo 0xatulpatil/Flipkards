@@ -43,6 +43,7 @@
 .shop{
     color: white;
     margin-right: 6px;
+    text-decoration: underline;
 }
 
 @media (min-width: 768px) {
