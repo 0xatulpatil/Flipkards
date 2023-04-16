@@ -909,7 +909,7 @@ let config = {
     rpc: "https://rpc-mumbai.maticvigil.com",
   },
   biconomyAPI: "qGqOR2X8J.54a769de-4fa3-4da8-8147-1fbbccf54a4d",
-  magicAuthAPI: "pk_live_C29A4926D2D9D3A5",
+  magicAuthAPI: "pk_live_9A3A9ECA60C3FB9E",
 };
 
 export default config;
